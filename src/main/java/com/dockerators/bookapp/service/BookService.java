@@ -7,6 +7,6 @@ import java.util.List;
 public interface BookService {
     public List<Book> findAll();
     public Book findById(int id);
-    public Book save(Book employee);
+    public Book save(Book book);
     public void  deleteById(int id);
 }

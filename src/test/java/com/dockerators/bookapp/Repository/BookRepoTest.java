@@ -46,7 +46,7 @@ public class BookRepoTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @AutoConfigureTestDatabase
     public void getListOfBooksTest(){
         List<Book> books = bookRepository.findAll();
@@ -54,7 +54,7 @@ public class BookRepoTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @Rollback(value = false)
     @AutoConfigureTestDatabase
     public void updateBookTest(){
@@ -65,7 +65,7 @@ public class BookRepoTest {
 
 
     @Test
-    @Order(5)
+    @Order(6)
     @AutoConfigureTestDatabase
     public void deleteBookTest(){
         Book book = bookRepository.findById(1).get();

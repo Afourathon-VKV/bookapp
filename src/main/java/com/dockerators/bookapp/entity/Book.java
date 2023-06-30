@@ -10,19 +10,20 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private int id; // Primary key of Book table to identify books
     @Column(name = "title")
-    private String title;
+    private String title; // Title of Book
     @Column(name = "author")
-    private String author;
+    private String author; // Author of Book
     @Column(name = "description")
-    private String description;
+    private String description; // Description of Book
     @Column(name = "code")
-    private String code;
+    private String code; // Book Code
 
+    // No Argument Constructor
     public Book() {
     }
-
+    // All Argument Constructor
     public Book(int id, String title, String author, String description, String code) {
         this.id = id;
         this.title = title;
@@ -30,7 +31,7 @@ public class Book {
         this.description = description;
         this.code = code;
     }
-
+    // Getters and Setters for all fields
     public int getId() {
         return id;
     }
@@ -71,6 +72,7 @@ public class Book {
         this.code = code;
     }
 
+    // Overridden toString() function to return in JSON {} format
     @Override
     public String toString() {
         return "Book{" +
@@ -82,6 +84,8 @@ public class Book {
                 '}';
     }
 
+    // Overridden equals function : for controller level tests to mock service functionality
+    // Returns true if two objects have the same value for all fields
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +97,9 @@ public class Book {
                 Objects.equals(description, student.getDescription()) &&
                 Objects.equals(code, student.getCode());
     }
+
+    // Used in the equals function
+    // Overridden to provide a consistent hash code for objects with equal field values.
     @Override
     public int hashCode() {
         return Objects.hash(id, title, author, description, code);

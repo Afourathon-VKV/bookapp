@@ -34,15 +34,15 @@ public class BookRepoTest {
     @AutoConfigureTestDatabase
     public void getBookTest(){
         Book search_book = bookRepository.findById(1).get();
-        Assertions.assertTrue((search_book.getId()) == 1);
+        Assertions.assertEquals(1, (search_book.getId()));
     }
 
     @Test
     @Order(3)
     @AutoConfigureTestDatabase
     public void getNonPresentBookTest(){
-        Boolean isPresent = bookRepository.findById(2).isPresent();
-        Assertions.assertTrue(isPresent == false);
+        boolean isPresent = bookRepository.findById(2).isPresent();
+        Assertions.assertFalse(isPresent);
     }
 
     @Test
@@ -60,7 +60,8 @@ public class BookRepoTest {
     public void updateBookTest(){
         Book book = bookRepository.findById(1).get();
         book.setTitle("Hounds of baskervilles");
-        Assertions.assertTrue((book.getTitle()).equals("Hounds of baskervilles"));
+        bookRepository.save(book);
+        Assertions.assertTrue(((bookRepository.findById(1).get()).getTitle()).equals("Hounds of baskervilles"));
     }
 
 

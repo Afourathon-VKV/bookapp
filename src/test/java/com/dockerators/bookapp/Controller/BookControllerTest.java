@@ -23,7 +23,9 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(BookRestController.class)
 public class BookControllerTest {
+    // ObjectMapper to convert objects to JSON and vice versa
     ObjectMapper om = new ObjectMapper();
+
     @MockBean
     private BookService bookService;
 
@@ -40,35 +42,41 @@ public class BookControllerTest {
         Book book2 = new Book(2,"And Then There Were None","Agatha Christie", "Murder Story","123456789");
         List<Book> books = Arrays.asList(book1,book2);
 
+        // Mock the service method call
         when(bookService.findAll()).thenReturn(books);
 
+        // Perform GET request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.get("/api/books")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].title").value("A Study in Scarlet"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].title").value("And Then There Were None"));
-
     }
 
     @Test
     public void testGetBookFromID() throws Exception {
+        // Mock data
         Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
+        // Mock the service method call
         when(bookService.findById(1)).thenReturn(book);
 
+        // Perform GET request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.get("/api/books/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("A Study in Scarlet"));
-
     }
 
     @Test
     public void testAddBook() throws Exception {
+        // Create a new book
         Book book = new Book(0,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
+        // Mock the service method call
         when(bookService.save(book)).thenReturn(book);
 
+        // Perform POST request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
                         .content(om.writeValueAsString(book)))
@@ -78,12 +86,15 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("987654321"));
     }
 
-
     @Test
     public void testUpdateBook() throws Exception {
+        // Create a book for updating
         Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+
+        // Mock the service method call
         when(bookService.save(any(Book.class))).thenReturn(book);
 
+        // Perform PUT request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(om.writeValueAsString(book)))
@@ -92,25 +103,28 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Conan Doyle"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("987654321"));
 
+        // Verify the service method call
         Mockito.verify(bookService).save(book);
     }
 
-
-
     @Test
     public void testDeleteBook() throws Exception {
+        // Create a book for deletion
         int bookId = 1;
         Book book = new Book(bookId,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+
+        // Mock the service method calls
         when(bookService.findById(bookId)).thenReturn(book);
         doNothing().when(bookService).deleteById(bookId);
 
+        // Perform DELETE request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/{book_id}", bookId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Deleted book id - " + bookId));
 
+        // Verify the service method calls
         Mockito.verify(bookService).findById(bookId);
         Mockito.verify(bookService).deleteById(bookId);
     }
-
 }

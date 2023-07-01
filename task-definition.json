@@ -56,7 +56,7 @@
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-south-1:760022656493:task-definition/Book_App:1",
+  "taskDefinitionArn": "arn:aws:ecs:ap-south-1:760022656493:task-definition/Book_App:5",
   "family": "Book_App",
   "requiresAttributes": [
     {
@@ -91,7 +91,7 @@
   "networkMode": "bridge",
   "runtimePlatform": null,
   "cpu": null,
-  "revision": 1,
+  "revision": 5,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,

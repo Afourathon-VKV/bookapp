@@ -63,11 +63,11 @@ jobs:
 
       - name: Adding secret
         run: |
-          echo -e "\nspring.datasource.password = $DEV_PROP_FILE " >> src/main/resources/application.properties
+          echo -e "\nspring.datasource.password = "$DEV_PROP_FILE" " >> src/main/resources/application.properties
           cat src/main/resources/application.properties
         shell: bash
         env:
-          DEV_PROP_FILE: ${{secrets.RDSPASSWORD}}
+          DEV_PROP_FILE: ${{ secrets.RDSPASSWORD }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

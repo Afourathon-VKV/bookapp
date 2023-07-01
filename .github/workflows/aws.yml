@@ -63,7 +63,7 @@ jobs:
 
       - name: Adding secret
         run: |
-          echo -e "\nspring.datasource.password = "$DEV_PROP_FILE" " >> src/main/resources/application.properties
+          echo spring.datasource.password = "$DEV_PROP_FILE" >> src/main/resources/application.properties
           cat src/main/resources/application.properties
         shell: bash
         env:

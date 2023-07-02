@@ -92,7 +92,7 @@ public class BookControllerTest {
         Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
         // Mock the service method call
-        when(bookService.save(any(Book.class))).thenReturn(book);
+        when(bookService.updateBook(book)).thenReturn(book);
 
         // Perform PUT request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books")
@@ -104,7 +104,7 @@ public class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("987654321"));
 
         // Verify the service method call
-        Mockito.verify(bookService).save(book);
+        Mockito.verify(bookService).updateBook(book);
     }
 
     @Test
@@ -114,17 +114,18 @@ public class BookControllerTest {
         Book book = new Book(bookId,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
         // Mock the service method calls
-        when(bookService.findById(bookId)).thenReturn(book);
-        doNothing().when(bookService).deleteById(bookId);
+        when(bookService.deleteById(bookId)).thenReturn(book);
 
         // Perform DELETE request and validate the response
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/{book_id}", bookId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Deleted book id - " + bookId));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("A Study in Scarlet"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Conan Doyle"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("987654321"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Murder Story"));
 
         // Verify the service method calls
-        Mockito.verify(bookService).findById(bookId);
         Mockito.verify(bookService).deleteById(bookId);
     }
 }

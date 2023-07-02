@@ -9,15 +9,15 @@ import java.util.Objects;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id; // Primary key of Book table to identify books
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title; // Title of Book
-    @Column(name = "author")
+    @Column(name = "author", nullable = false)
     private String author; // Author of Book
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description; // Description of Book
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
     private String code; // Book Code
 
     // No Argument Constructor

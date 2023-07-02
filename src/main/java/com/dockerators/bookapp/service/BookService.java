@@ -9,5 +9,6 @@ public interface BookService {
     public List<Book> findAll();
     public Book findById(int id);
     public Book save(Book book);
-    public void  deleteById(int id);
+    public Book  deleteById(int id);
+    public Book updateBook(Book book);
 }

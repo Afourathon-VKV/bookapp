@@ -8,6 +8,7 @@ import java.util.List;
 public interface BookService {
     public List<Book> findAll();
     public Book findById(int id);
+    public Book findByCode(String code);
     public Book save(Book book);
     public Book  deleteById(int id);
     public Book updateBook(Book book);

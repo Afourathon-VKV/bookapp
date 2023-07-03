@@ -43,6 +43,18 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    public Book findByCode(String code){
+        Optional<Book> result = this.bookRepository.findByCode(code);
+        Book book;
+        if(result.isPresent()) {
+            book = result.get();
+            return(book);
+        }else{
+            // Will throw error if a book with that ID is not found
+            throw new BookNotFoundException();
+        }
+
+    }
     @Override
     public Book updateBook(Book book) throws RuntimeException{
         try{

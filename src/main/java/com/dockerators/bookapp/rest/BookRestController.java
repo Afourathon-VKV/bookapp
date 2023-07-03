@@ -33,6 +33,10 @@ public class BookRestController {
         return this.bookService.findById(book_id);
     }
 
+    @GetMapping("/books/code/{code}")
+    public Book findByCode(@PathVariable String code){
+        return this.bookService.findByCode(code);
+    }
     @PostMapping("/books")
     // Route to add a new book
     // The book object is accepted in the request body

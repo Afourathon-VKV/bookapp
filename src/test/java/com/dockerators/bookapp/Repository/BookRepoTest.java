@@ -35,16 +35,26 @@ public class BookRepoTest {
     @Test
     @Order(2)
     @AutoConfigureTestDatabase
-    public void getBookTest(){
+    public void getBookByIDTest(){
         // Retrieving a book with ID 1
         Book search_book = bookRepository.findById(1).get();
         // Verifying if the retrieved book has the expected ID
         Assertions.assertEquals(1, search_book.getId());
     }
 
-    // Test to check if a non-existent book is not present
     @Test
     @Order(3)
+    @AutoConfigureTestDatabase
+    public void getBookByCodeTest(){
+        // Retrieving a book with ID 1
+        Book search_book = bookRepository.findByCode("123456789").get();
+        // Verifying if the retrieved book has the expected ID
+        Assertions.assertEquals(1, search_book.getId());
+    }
+
+    // Test to check if a non-existent book is not present
+    @Test
+    @Order(4)
     @AutoConfigureTestDatabase
     public void getNonPresentBookTest(){
         // Checking if a book with ID 2 is present
@@ -55,7 +65,7 @@ public class BookRepoTest {
 
     // Test to retrieve a list of books
     @Test
-    @Order(4)
+    @Order(5)
     @AutoConfigureTestDatabase
     public void getListOfBooksTest(){
         // Retrieving all books
@@ -66,7 +76,7 @@ public class BookRepoTest {
 
     // Test to update a book's title
     @Test
-    @Order(5)
+    @Order(6)
     @Rollback(value = false)
     @AutoConfigureTestDatabase
     public void updateBookTest(){
@@ -81,7 +91,7 @@ public class BookRepoTest {
 
     // Test to delete a book
     @Test
-    @Order(6)
+    @Order(7)
     @AutoConfigureTestDatabase
     public void deleteBookTest(){
         // Retrieving a book with ID 1

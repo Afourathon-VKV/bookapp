@@ -69,6 +69,21 @@ public class BookControllerTest {
     }
 
     @Test
+    public void testGetBookFromCode() throws Exception {
+        // Mock data
+        Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+
+        // Mock the service method call
+        when(bookService.findByCode(book.getCode())).thenReturn(book);
+
+        // Perform GET request and validate the response
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/code/987654321")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("A Study in Scarlet"));
+    }
+
+    @Test
     public void testAddBook() throws Exception {
         // Create a new book
         Book book = new Book(0,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");

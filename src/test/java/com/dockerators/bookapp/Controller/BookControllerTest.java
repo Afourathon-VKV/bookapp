@@ -123,7 +123,7 @@ public class BookControllerTest {
     }
 
     @Test
-    public void testDeleteBook() throws Exception {
+    public void testDeleteBookById() throws Exception {
         // Create a book for deletion
         int bookId = 1;
         Book book = new Book(bookId,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
@@ -142,5 +142,27 @@ public class BookControllerTest {
 
         // Verify the service method calls
         Mockito.verify(bookService).deleteById(bookId);
+    }
+
+    @Test
+    public void testDeleteBookByCode() throws Exception {
+        // Create a book for deletion
+        String bookCode = "987654321";
+        Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story",bookCode);
+
+        // Mock the service method calls
+        when(bookService.deleteByCode(bookCode)).thenReturn(book);
+
+        // Perform DELETE request and validate the response
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/code/{book_code}", bookCode)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("A Study in Scarlet"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Conan Doyle"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("987654321"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Murder Story"));
+
+        // Verify the service method calls
+        Mockito.verify(bookService).deleteByCode(bookCode);
     }
 }

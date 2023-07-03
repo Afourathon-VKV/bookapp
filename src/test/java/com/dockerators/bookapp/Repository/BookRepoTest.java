@@ -93,9 +93,26 @@ public class BookRepoTest {
     @Test
     @Order(7)
     @AutoConfigureTestDatabase
-    public void deleteBookTest(){
+    public void deleteBookByIdTest(){
         // Retrieving a book with ID 1
         Book book = bookRepository.findById(1).get();
+        // Deleting the book
+        bookRepository.delete(book);
+        // Verifying if the book has been deleted
+        Book deletedBook = null;
+        Optional<Book> optionalBook = bookRepository.findByTitle("Hounds of Baskervilles");
+        if(optionalBook.isPresent()){
+            deletedBook = optionalBook.get();
+        }
+        Assertions.assertTrue(deletedBook == null);
+    }
+
+    @Test
+    @Order(8)
+    @AutoConfigureTestDatabase
+    public void deleteBookByCodeTest(){
+        // Retrieving a book with Code 123456789
+        Book book = bookRepository.findByCode("123456789").get();
         // Deleting the book
         bookRepository.delete(book);
         // Verifying if the book has been deleted

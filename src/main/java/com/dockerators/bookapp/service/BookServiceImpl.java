@@ -50,7 +50,7 @@ public class BookServiceImpl implements BookService {
             book = result.get();
             return(book);
         }else{
-            // Will throw error if a book with that ID is not found
+            // Will throw error if a book with that Code is not found
             throw new BookNotFoundException();
         }
 
@@ -101,6 +101,19 @@ public class BookServiceImpl implements BookService {
             throw new BookNotFoundException();
         } else {
             this.bookRepository.deleteById(id);
+            return b.get();
+        }
+    }
+
+    @Override
+    // Deletes a book that corresponds to a code
+    public Book deleteByCode(String code) {
+        Optional<Book> b = this.bookRepository.findByCode(code);
+        if (b.isEmpty()) {
+            // Will throw error if a book with that code does not exist
+            throw new BookNotFoundException();
+        } else {
+            this.bookRepository.deleteByCode(code);
             return b.get();
         }
     }

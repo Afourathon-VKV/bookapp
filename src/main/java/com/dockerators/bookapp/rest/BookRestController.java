@@ -2,6 +2,7 @@ package com.dockerators.bookapp.rest;
 
 import com.dockerators.bookapp.entity.Book;
 import com.dockerators.bookapp.service.BookService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,8 @@ public class BookRestController {
     }
 
     @GetMapping("/books/code/{code}")
+    // Route to get the book that corresponds to a book code
+    // The code is taken as a path variable
     public Book findByCode(@PathVariable String code){
         return this.bookService.findByCode(code);
     }
@@ -53,10 +56,18 @@ public class BookRestController {
     }
 
     @DeleteMapping("/books/{book_id}")
-    // Route to delete a student that corresponds to an id
-    // The id of the student to be deleted is taken as a path variable
-    public Book deleteStudent(@PathVariable int book_id) {
+    // Route to delete a book that corresponds to an id
+    // The id of the book to be deleted is taken as a path variable
+    public Book deleteStudentById(@PathVariable int book_id) {
         return this.bookService.deleteById(book_id);
+    }
+
+    @Transactional
+    @DeleteMapping("/books/code/{code}")
+    // Route to delete a book that corresponds to a code
+    // The code of the book to be deleted is taken as a path variable
+    public Book deleteStudentByCode(@PathVariable String code) {
+        return this.bookService.deleteByCode(code);
     }
 
 }

@@ -11,5 +11,6 @@ public interface BookService {
     public Book findByCode(String code);
     public Book save(Book book);
     public Book  deleteById(int id);
+    public Book  deleteByCode(String code);
     public Book updateBook(Book book);
 }

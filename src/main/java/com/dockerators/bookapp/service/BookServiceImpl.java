@@ -28,21 +28,6 @@ public class BookServiceImpl implements BookService {
         return (this.bookRepository.findAll());
     }
 
-    @Override
-    // Will return a book from the database that corresponds to an id
-    public Book findById(int id) {
-        // May be null.
-        Optional<Book> result = this.bookRepository.findById(id);
-        Book book;
-        if(result.isPresent()) {
-            book = result.get();
-            return(book);
-        }else{
-            // Will throw error if a book with that ID is not found
-            throw new BookNotFoundException();
-        }
-    }
-
     public Book findByCode(String code){
         Optional<Book> result = this.bookRepository.findByCode(code);
         Book book;
@@ -63,7 +48,6 @@ public class BookServiceImpl implements BookService {
                 // Will throw error if a book with that code is not found
                 throw new BookNotFoundException();
             }
-            book.setId(result.get().getId());
             return this.bookRepository.save(book);
         } catch (BookNotFoundException e) {
             throw e;
@@ -89,19 +73,6 @@ public class BookServiceImpl implements BookService {
         }catch (RuntimeException e){
             // Will throw error if any of the fields are NULL.
             throw new NullFieldsException();
-        }
-    }
-
-    @Override
-    // Deletes a book that corresponds to an id
-    public Book deleteById(int id) {
-        Optional<Book> b = this.bookRepository.findById(id);
-        if (b.isEmpty()) {
-            // Will throw error if a book with that ID does not exist
-            throw new BookNotFoundException();
-        } else {
-            this.bookRepository.deleteById(id);
-            return b.get();
         }
     }
 

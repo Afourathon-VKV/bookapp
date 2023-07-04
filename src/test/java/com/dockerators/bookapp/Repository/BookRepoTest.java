@@ -25,47 +25,37 @@ public class BookRepoTest {
     @Rollback(value = false)
     public void saveBookTest(){
         // Creating a book object
-        Book book = new Book(1,"Study in Scarlet","Conan Doyle","Mystery Book","123456789");
+        Book book = new Book("Study in Scarlet","Conan Doyle","Mystery Book","123456789");
         bookRepository.save(book);
         // Verifying if the book object has been assigned an ID
-        Assertions.assertTrue(book.getId() > 0);
+        Assertions.assertSame("123456789", book.getCode());
     }
 
-    // Test to retrieve a book by ID
+    // Test to retrieve a book by code
     @Test
     @Order(2)
-    @AutoConfigureTestDatabase
-    public void getBookByIDTest(){
-        // Retrieving a book with ID 1
-        Book search_book = bookRepository.findById(1).get();
-        // Verifying if the retrieved book has the expected ID
-        Assertions.assertEquals(1, search_book.getId());
-    }
-
-    @Test
-    @Order(3)
     @AutoConfigureTestDatabase
     public void getBookByCodeTest(){
         // Retrieving a book with ID 1
         Book search_book = bookRepository.findByCode("123456789").get();
         // Verifying if the retrieved book has the expected ID
-        Assertions.assertEquals(1, search_book.getId());
+        Assertions.assertEquals("123456789", search_book.getCode());
     }
 
     // Test to check if a non-existent book is not present
     @Test
-    @Order(4)
+    @Order(3)
     @AutoConfigureTestDatabase
     public void getNonPresentBookTest(){
         // Checking if a book with ID 2 is present
-        boolean isPresent = bookRepository.findById(2).isPresent();
+        boolean isPresent = bookRepository.findByCode("1234567").isPresent();
         // Verifying that the book with ID 2 is not present
         Assertions.assertFalse(isPresent);
     }
 
     // Test to retrieve a list of books
     @Test
-    @Order(5)
+    @Order(4)
     @AutoConfigureTestDatabase
     public void getListOfBooksTest(){
         // Retrieving all books
@@ -76,39 +66,22 @@ public class BookRepoTest {
 
     // Test to update a book's title
     @Test
-    @Order(6)
+    @Order(5)
     @Rollback(value = false)
     @AutoConfigureTestDatabase
     public void updateBookTest(){
         // Retrieving a book with ID 1
-        Book book = bookRepository.findById(1).get();
+        Book book = bookRepository.findByCode("123456789").get();
         // Updating the book's title
         book.setTitle("Hounds of Baskervilles");
         bookRepository.save(book);
         // Verifying if the book's title has been updated
-        Assertions.assertTrue(bookRepository.findById(1).get().getTitle().equals("Hounds of Baskervilles"));
+        Assertions.assertTrue(bookRepository.findByCode("123456789").get().getTitle().equals("Hounds of Baskervilles"));
     }
 
     // Test to delete a book
     @Test
-    @Order(7)
-    @AutoConfigureTestDatabase
-    public void deleteBookByIdTest(){
-        // Retrieving a book with ID 1
-        Book book = bookRepository.findById(1).get();
-        // Deleting the book
-        bookRepository.delete(book);
-        // Verifying if the book has been deleted
-        Book deletedBook = null;
-        Optional<Book> optionalBook = bookRepository.findByTitle("Hounds of Baskervilles");
-        if(optionalBook.isPresent()){
-            deletedBook = optionalBook.get();
-        }
-        Assertions.assertTrue(deletedBook == null);
-    }
-
-    @Test
-    @Order(8)
+    @Order(6)
     @AutoConfigureTestDatabase
     public void deleteBookByCodeTest(){
         // Retrieving a book with Code 123456789
@@ -121,6 +94,6 @@ public class BookRepoTest {
         if(optionalBook.isPresent()){
             deletedBook = optionalBook.get();
         }
-        Assertions.assertTrue(deletedBook == null);
+        Assertions.assertNull(deletedBook);
     }
 }

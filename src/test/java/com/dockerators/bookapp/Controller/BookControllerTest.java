@@ -38,8 +38,8 @@ public class BookControllerTest {
     @Test
     public void testGetAllBooks() throws Exception {
         // Mock data
-        Book book1 = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
-        Book book2 = new Book(2,"And Then There Were None","Agatha Christie", "Murder Story","123456789");
+        Book book1 = new Book("A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+        Book book2 = new Book("And Then There Were None","Agatha Christie", "Murder Story","123456789");
         List<Book> books = Arrays.asList(book1,book2);
 
         // Mock the service method call
@@ -54,24 +54,9 @@ public class BookControllerTest {
     }
 
     @Test
-    public void testGetBookFromID() throws Exception {
-        // Mock data
-        Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
-
-        // Mock the service method call
-        when(bookService.findById(1)).thenReturn(book);
-
-        // Perform GET request and validate the response
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("A Study in Scarlet"));
-    }
-
-    @Test
     public void testGetBookFromCode() throws Exception {
         // Mock data
-        Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+        Book book = new Book("A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
         // Mock the service method call
         when(bookService.findByCode(book.getCode())).thenReturn(book);
@@ -86,7 +71,7 @@ public class BookControllerTest {
     @Test
     public void testAddBook() throws Exception {
         // Create a new book
-        Book book = new Book(0,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+        Book book = new Book("A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
         // Mock the service method call
         when(bookService.save(book)).thenReturn(book);
@@ -104,7 +89,7 @@ public class BookControllerTest {
     @Test
     public void testUpdateBook() throws Exception {
         // Create a book for updating
-        Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
+        Book book = new Book("A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
 
         // Mock the service method call
         when(bookService.updateBook(book)).thenReturn(book);
@@ -123,32 +108,10 @@ public class BookControllerTest {
     }
 
     @Test
-    public void testDeleteBookById() throws Exception {
-        // Create a book for deletion
-        int bookId = 1;
-        Book book = new Book(bookId,"A Study in Scarlet","Conan Doyle", "Murder Story","987654321");
-
-        // Mock the service method calls
-        when(bookService.deleteById(bookId)).thenReturn(book);
-
-        // Perform DELETE request and validate the response
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/{book_id}", bookId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("A Study in Scarlet"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Conan Doyle"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value("987654321"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Murder Story"));
-
-        // Verify the service method calls
-        Mockito.verify(bookService).deleteById(bookId);
-    }
-
-    @Test
     public void testDeleteBookByCode() throws Exception {
         // Create a book for deletion
         String bookCode = "987654321";
-        Book book = new Book(1,"A Study in Scarlet","Conan Doyle", "Murder Story",bookCode);
+        Book book = new Book("A Study in Scarlet","Conan Doyle", "Murder Story",bookCode);
 
         // Mock the service method calls
         when(bookService.deleteByCode(bookCode)).thenReturn(book);

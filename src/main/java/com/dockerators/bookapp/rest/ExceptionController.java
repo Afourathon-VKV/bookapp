@@ -20,7 +20,7 @@ public class ExceptionController {
 
     @ExceptionHandler(value = BookNotFoundException.class)
     public ResponseEntity<Object> bookNotFound(BookNotFoundException bookNotFoundException){
-        return new ResponseEntity<>("A book with that id/code not found.",HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("A book with that code not found.",HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = BookAlreadyExistsException.class)

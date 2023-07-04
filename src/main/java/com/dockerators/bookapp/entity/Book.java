@@ -7,39 +7,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "book")
 public class Book {
+    @Column(name = "code", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id; // Primary key of Book table to identify books
+    private String code; // Book Code -> Primary Key
     @Column(name = "title", nullable = false)
     private String title; // Title of Book
     @Column(name = "author", nullable = false)
     private String author; // Author of Book
     @Column(name = "description", nullable = false)
     private String description; // Description of Book
-    @Column(name = "code", nullable = false)
-    private String code; // Book Code
+
 
     // No Argument Constructor
     public Book() {
     }
     // All Argument Constructor
-    public Book(int id, String title, String author, String description, String code) {
-        this.id = id;
+    public Book(String title, String author, String description, String code) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.code = code;
     }
     // Getters and Setters for all fields
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -76,8 +65,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
                 ", code='" + code + '\'' +
@@ -91,8 +79,7 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book student = (Book) o;
-        return Objects.equals(id, student.getId()) &&
-                Objects.equals(title, student.getTitle()) &&
+        return Objects.equals(title, student.getTitle()) &&
                 Objects.equals(author, student.getAuthor()) &&
                 Objects.equals(description, student.getDescription()) &&
                 Objects.equals(code, student.getCode());
@@ -102,6 +89,6 @@ public class Book {
     // Overridden to provide a consistent hash code for objects with equal field values.
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, description, code);
+        return Objects.hash(title, author, description, code);
     }
 }

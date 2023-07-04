@@ -27,24 +27,17 @@ public class BookRestController {
         return (this.bookService.findAll());
     }
 
-    @GetMapping("/books/{book_id}")
-    // Route to get the book that corresponds to an id
-    // The id is taken as a path variable
-    public Book findById(@PathVariable int book_id) {
-        return this.bookService.findById(book_id);
-    }
-
     @GetMapping("/books/code/{code}")
     // Route to get the book that corresponds to a book code
     // The code is taken as a path variable
     public Book findByCode(@PathVariable String code){
         return this.bookService.findByCode(code);
     }
+
     @PostMapping("/books")
     // Route to add a new book
     // The book object is accepted in the request body
     public Book addBook(@RequestBody Book book) {
-        book.setId(0);      // To force an add, not an update.
         return (this.bookService.save(book));
     }
 
@@ -53,13 +46,6 @@ public class BookRestController {
     // The book object is accepted in the request body
     public Book updateBook(@RequestBody Book book) {
         return (this.bookService.updateBook(book));
-    }
-
-    @DeleteMapping("/books/{book_id}")
-    // Route to delete a book that corresponds to an id
-    // The id of the book to be deleted is taken as a path variable
-    public Book deleteStudentById(@PathVariable int book_id) {
-        return this.bookService.deleteById(book_id);
     }
 
     @Transactional

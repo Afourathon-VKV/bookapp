@@ -6,6 +6,7 @@ COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline
+RUN ./mvnw clean test
 
 COPY src ./src
 

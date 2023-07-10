@@ -38,6 +38,7 @@ public class BookServiceImpl implements BookService {
         if(result.isPresent()) {
             book = result.get();
             logger.info(String.format("Book with code %s was retrieved.", code));
+            // Returns the book with a given code if it exists
             return(book);
         }else{
             // Will throw error if a book with that Code is not found
@@ -55,6 +56,7 @@ public class BookServiceImpl implements BookService {
                 throw new BookNotFoundException();
             }
             logger.info(String.format("Book with Code %s was updated.", book.getCode()));
+            // Updates the book with a given code if it exists
             return this.bookRepository.save(book);
         } catch (BookNotFoundException e) {
             logger.error(String.format("Book with Code %s does not exist and hence cannot be updated.", book.getCode()));
@@ -74,6 +76,7 @@ public class BookServiceImpl implements BookService {
                 throw new BookAlreadyExistsException();
             }else{
                 logger.info(String.format("Student with Code %s was added.", book.getCode()));
+                // Adds the book if another book with the same code does not exist
                 return (this.bookRepository.save(book));
             }
         }catch (BookAlreadyExistsException e){
@@ -95,6 +98,7 @@ public class BookServiceImpl implements BookService {
             logger.error(String.format("Book with code %s doesn't exist and hence can't be deleted.", code));
             throw new BookNotFoundException();
         } else {
+            // Deletes the book with that code if it exists
             this.bookRepository.deleteByCode(code);
             logger.info(String.format("Book with code %s has been deleted.", code));
             return b.get();

@@ -10,5 +10,6 @@ public interface BookRepository extends JpaRepository <Book, Integer> {
     Optional<Book> findByTitle(String title);
     // JPA Repository Function to find the book with a given 'code'.
     Optional<Book> findByCode(String code);
+    // JPA Repository Function to delete the book with a given 'code'.
     void deleteByCode(String code);
 }

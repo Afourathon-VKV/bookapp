@@ -19,11 +19,13 @@
 ### Endpoints
 
 - The following are the API endpoints in our application:
-  - GET api/books : Returns all books that have been added to the database so far
-  - GET api/books/code/{code} : Returns the book that corresponds the code in the path variable. Returns a BookNotFoundException if there is no book that corresponds to the given code.
-  - POST api/books : Takes a book object in the body of the request and adds it to the database. Returns a BookAlreadyExistsException if there is already a book in the DB with the same code (as book code is unique). Returns a NullFieldsException if there is any attribute of the book that is null in the request (all book fields are mandatory).
-  - PUT /api/books : Takes a book object in the body of the request and updates the book in the DB that corresponds to the code of the book in request body to the book in the request body. Returns a BookNotFoundException if there is no book in the DB with corresponding book code. Returns a NullFieldsException if there is any attribute of the book that is null in the request (all book fields are mandatory).
-  - DELETE api/books/code/{code} : Deletes the book that corresponds the code in the path variable from the DB. Returns a BookNotFoundException if there is no book that corresponds to the given code.
+  | Method | Endpoint | Description |
+  |--------|----------|--------------|
+  |GET |api/books | Returns all books that have been added to the database so far. |
+  |GET| api/books/code/{code} | Returns the book that corresponds the code in the path variable. Returns a BookNotFoundException if there is no book that corresponds to the given code. |
+  |POST |api/books | Takes a book object in the body of the request and adds it to the database. Returns a BookAlreadyExistsException if there is already a book in the DB with the same code (as book code is unique). Returns a NullFieldsException if there is any attribute of the book that is null in the request (all book fields are mandatory). |
+  |PUT| /api/books | Takes a book object in the body of the request and updates the book in the DB that corresponds to the code of the book in request body to the book in the request body. Returns a BookNotFoundException if there is no book in the DB with corresponding book code. Returns a NullFieldsException if there is any attribute of the book that is null in the request (all book fields are mandatory). |
+  |DELETE |api/books/code/{code} | Deletes the book that corresponds the code in the path variable from the DB. Returns a BookNotFoundException if there is no book that corresponds to the given code. |
 
 ### Project Structure
 

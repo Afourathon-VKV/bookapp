@@ -31,7 +31,7 @@
 
 - Follows the Controller-Service-Repository pattern.
   - The controller layer is responsible for management of the REST interface to the business logic. It defines the REST API endpoints and calls the respective service layer functions based on which endpoint is invoked. It uses the @RestController annotation to make the application RESTful.
-  - The service layer handles the business logic implementation. There is an interface for the book service and is then extended with a Book Service Implementation. This is in accordance to the SOLID Principles. 
+  - The service layer handles the business logic implementation. There is an interface for the book service and is then extended with a Book Service Implementation. This is in accordance to the SOLID Principles. Logs are made here in the different service functions using the slf4j logger class to denote different successes and failures.
   - The repository layer handles all interaction with the database. Our application uses the JPA library to make database operations easier to code. 
 
 ### Testing

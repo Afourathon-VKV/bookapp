@@ -5,7 +5,15 @@
     {
       "dnsSearchDomains": null,
       "environmentFiles": null,
-      "logConfiguration": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/Book_App",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "entryPoint": [],
       "portMappings": [
         {
@@ -29,7 +37,7 @@
       "memoryReservation": 512,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "760022656493.dkr.ecr.ap-south-1.amazonaws.com/bookapp:08eecf059fe7ef0a84775a5bb7153af64db667cd",
+      "image": "760022656493.dkr.ecr.ap-south-1.amazonaws.com/bookapp:6d6ed58dfc12f84d9ccb2b8bf244d4e84eb20b70",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -56,14 +64,32 @@
     "EXTERNAL",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-south-1:760022656493:task-definition/Book_App:22",
+  "taskDefinitionArn": "arn:aws:ecs:ap-south-1:760022656493:task-definition/Book_App:29",
   "family": "Book_App",
   "requiresAttributes": [
     {
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
       "targetId": null,
@@ -91,7 +117,7 @@
   "networkMode": "bridge",
   "runtimePlatform": null,
   "cpu": null,
-  "revision": 22,
+  "revision": 29,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,

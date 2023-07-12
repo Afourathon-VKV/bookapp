@@ -61,7 +61,7 @@ jobs:
           unset AWS_SECRET_ACCESS_KEY
           unset AWS_SESSION_TOKEN
 
-       - name: Adding application.properties file
+      - name: Adding application.properties file
         run: |
           mkdir src/main/resources
           touch src/main/resources/application.properties
